@@ -1,5 +1,5 @@
 # Feature-level and Spatial-level Activation Expansion for Weakly-Supervised Semantic Segmentation [WACV 2025]
-This is the official implementation of "Feature-level and Spatial-level Activation Expansion for Weakly-Supervised Semantic Segmentation".
+This repository is the official implementation of "Feature-level and Spatial-level Activation Expansion for Weakly-Supervised Semantic Segmentation", accepted to WACV 2025.
 
 ## Abstract
 Weakly-supervised Semantic Segmentation (WSSS) aims to provide a precise semantic segmentation results without expensive pixel-wise segmentation labels.
@@ -79,3 +79,13 @@ MS COCO 2014
   ```
 
   </details>
+
+# Performance (WIP)
+- PASCAL VOC 2012
+| basemodel      | train mIoU  | val mIoU  | test mIoU   |
+| --------       | ----------- | :---------: | :-------: | 
+| PPC+Ours       | X           |    61.5     |   58.4    | 
+| MCTFormer+Ours | O           |    70.5     |     -     |
+| SIPE+Ours      | X           |      -      |   72.3*   |
+
+- COCO 2014
