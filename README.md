@@ -1,7 +1,7 @@
 # Feature-level and Spatial-level Activation Expansion for Weakly-Supervised Semantic Segmentation [WACV 2025]
 This repository is the official implementation of "Feature-level and Spatial-level Activation Expansion for Weakly-Supervised Semantic Segmentation", accepted to WACV 2025.
 
-## Abstract
+### Abstract
 Weakly-supervised Semantic Segmentation (WSSS) aims to provide a precise semantic segmentation results without expensive pixel-wise segmentation labels.
 With the supervision gap between classification and segmentation, Image-level WSSS mainly relies on Class Activation Maps (CAMs) from the classification model to emulate the pixel-wise annotations.
 However, CAMs often fail to cover the entire object region because classification models tend to focus on narrow discriminative regions in an object.
@@ -11,30 +11,25 @@ We leverage weak-strong consistency with pseudo-label expansion strategy for rel
 Specifically, we use strong perturbation to make challenging inference target, and focus on generating reliable pixel-wise supervision signal for broad object regions.
 Extensive experiments on the WSSS benchmark datasets show that our method boosts initial seed quality and segmentation performance by large margin, achieving new state-of-the-art performance on benchmark WSSS datasets.
 
-# Setting up
-We followed each base models' environment settings. For exact instructions, please refer to:
-
-- PPC: [https://github.com/usr922/wseg]
-- SIPE: [https://github.com/chenqi1126/sipe]
-- MCTFormer: [https://github.com/xulianuwa/MCTformer]
-
-or navigate the forked branches in this repository.
-
+# Setup (WIP)
 ## Environments
-Our method is tested on single NVIDIA RTX 3090 with CUDA 11.7, Ubuntu 18.04.
-
-
-- Python 3.8.5
-- Pytorch 1.11 or higher
+Our method is tested on single NVIDIA RTX 3090 with CUDA 11.7, Ubuntu 18.04. Essential packages are as below:
+- Python 3.8.8 or higher
+- Pytorch 1.7.1 or higher
 - Pydensecrf from https://github.com/lucasb-eyer/pydensecrf
 - opencv-python
+  
+For maximum reproducibility, We recommend to construct individual virtualenv for each base model from the forked branches in this repos
 
+or follow the details from original repos:
+
+- [PPC](https://github.com/usr922/wseg)
+- [SIPE](https://github.com/chenqi1126/sipe)
+- [MCTFormer](https://github.com/xulianuwa/MCTformer)
+
+  
 ## Datasets (WIP)
-<details>
-<summary>
-PASCAL VOC 2012
-</summary>
-
+### PASCAL VOC 2012
 - Download PASCAL VOC 2012 from this [link](http://host.robots.ox.ac.uk/pascal/VOC/voc2012).
   ``` bash
   wget http://host.robots.ox.ac.uk/pascal/VOC/voc2012/VOCtrainval_11-May-2012.tar
@@ -52,20 +47,13 @@ PASCAL VOC 2012
   │     ├── SegmentationClassAug
   │     └── SegmentationObject
     ```
-
-  </details>
-
-<details>
-<summary>
-MS COCO 2014
-</summary>
-
+### MS COCO 2014
 - Download [MS COCO 2014 dataset](https://cocodataset.org/#home)
   ``` bash
   wget http://images.cocodataset.org/zips/train2014.zip
   wget http://images.cocodataset.org/zips/val2014.zip
   ```
-  - The directories should be like below:
+- The directories should be like below:
   ``` bash
   ├── COCO2014/
   │   ├── train/              
@@ -77,15 +65,27 @@ MS COCO 2014
   │       ├── mask/        
   │       └── xml/
   ```
+# Usage
+Please navigate the other branches.
 
-  </details>
-
-# Performance (WIP)
+# Performance
+Marked with * means reproduced performance.
 - PASCAL VOC 2012
-| basemodel      | train mIoU  | val mIoU  | test mIoU   |
-| --------       | ----------- | :---------: | :-------: | 
-| PPC+Ours       | X           |    61.5     |   58.4    | 
-| MCTFormer+Ours | O           |    70.5     |     -     |
-| SIPE+Ours      | X           |      -      |   72.3*   |
+
+  | basemodel      | Mask mIoU  | val mIoU   | test mIoU  | 
+  | -------------  | :--------: | :--------: | :--------: | 
+  | [PPC](https://github.com/usr922/wseg)            |    73.3    |    74.4    |   75.0     | 
+  | **PPC+Ours**       |    **77.0**    |    **74.4**    |   **75.0**     | 
+  | [SIPE](https://github.com/chenqi1126/sipe)           |    64.7    |    68.8    |   73.6     | 
+  | **SIPE+Ours**      |    **70.5**    |    **69.9**    |   **71.2**     | 
+  | [MCTFormer](https://github.com/xulianuwa/MCTformer)*      |    67.9    |    69.0    |   69.8     | 
+  | **MCTFormer+Ours** |    **68.8**    |    **69.8**    |   **70.5**     | 
 
 - COCO 2014
+
+  | basemodel      |  val mIoU  | 
+  | -------------  | :--------: |
+  | PPC*           |    33.7    |
+  | PPC+Ours       |    35.4    |
+  | SIPE           |    39.3    |
+  | SIPE+Ours      |    39.5    |
